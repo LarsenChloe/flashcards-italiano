@@ -110,12 +110,45 @@ button:active { transform: scale(0.98); }
 .toast { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #2d7a4f; color: white; font-size: 13px; padding: 10px 20px; border-radius: 20px; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 200; }
 .toast.show { opacity: 1; }
 
+
+/* VERBI */
+.verbi-controls { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; align-items:center; }
+.verbi-card { background:#f8fff9; border:1px solid #a8d5b5; border-radius:14px; padding:20px; margin-bottom:10px; }
+.verbi-question { font-size:22px; font-weight:500; text-align:center; margin-bottom:6px; line-height:1.4; }
+.verbi-sub { font-size:13px; color:#888; text-align:center; margin-bottom:18px; }
+.verbi-person-badge { display:inline-block; background:#2d7a4f; color:white; font-size:11px; font-weight:700; padding:3px 10px; border-radius:10px; margin-bottom:4px; letter-spacing:.06em; }
+.verbi-tense-badge { display:inline-block; background:#a8d5b5; color:#1a2e1f; font-size:11px; font-weight:600; padding:3px 10px; border-radius:10px; margin-bottom:16px; }
+.verbi-input-row { display:flex; gap:8px; margin-bottom:10px; }
+.verbi-input { flex:1; height:48px; border:2px solid #a8d5b5; border-radius:10px; padding:0 16px; font-size:17px; font-family:inherit; outline:none; background:#f8fff9; transition:border-color .2s; }
+.verbi-input:focus { border-color:#2d7a4f; }
+.verbi-input.ok { border-color:#2d7a4f; background:#f0fdf4; color:#166534; }
+.verbi-input.ko { border-color:#991b1b; background:#fef2f2; color:#991b1b; }
+.verbi-btn { height:48px; padding:0 20px; border-radius:10px; background:#2d7a4f; color:white; border:none; font-size:14px; font-family:inherit; font-weight:600; cursor:pointer; }
+.verbi-feedback { margin-top:10px; padding:12px 14px; border-radius:10px; font-size:14px; display:none; }
+.verbi-feedback.ok { background:#f0fdf4; color:#166534; border:1px solid #a8d5b5; }
+.verbi-feedback.ko { background:#fef2f2; color:#991b1b; border:1px solid #fca5a5; }
+.verbi-next { width:100%; padding:13px; border-radius:10px; background:#2d7a4f; color:white; border:none; font-size:14px; font-family:inherit; font-weight:700; cursor:pointer; margin-top:8px; display:none; }
+.verbi-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:10px; }
+.verbi-hint { font-size:11px; color:#aaa; text-align:center; margin-top:6px; }
+.tense-filter { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+.tense-chip { padding:5px 12px; border-radius:14px; border:1.5px solid #a8d5b5; background:#f8fff9; font-size:12px; cursor:pointer; color:#555; font-family:inherit; transition:all .15s; }
+.tense-chip.active { background:#2d7a4f; color:white; border-color:#2d7a4f; }
+
 /* PAGES */
-#page-gram, #page-quiz, #page-defi { display: none; }
+#page-gram, #page-quiz, #page-defi, #page-verbi { display: none; }
 </style>
 <link rel="apple-touch-icon" href="data:image/png;base64,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">
 <link rel="icon" type="image/png" href="data:image/png;base64,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">
 <meta name="apple-mobile-web-app-title" content="Italiano">
+<script>
+if ('serviceWorker' in navigator && location.hostname === 'larsenchloe.github.io') {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/flashcards-italiano/sw-larsen.js', {scope: '/flashcards-italiano/'})
+      .then(function(reg) { console.log('SW enregistré:', reg.scope); })
+      .catch(function(err) { console.log('SW erreur:', err); });
+  });
+}
+</script>
 </head>
 <body>
 
@@ -312,10 +345,74 @@ button:active { transform: scale(0.98); }
 </div>
 
 <!-- BOTTOM NAV -->
+
+<!-- ===================== PAGE VERBI ===================== -->
+<div id="page-verbi" style="display:none">
+<h1>Révision des verbes</h1>
+<div class="verbi-controls">
+  <select id="verbi-mode" onchange="verbiBuild()">
+    <option value="all">Tous les temps</option>
+    <option value="presente">Présent</option>
+    <option value="pc">Passé composé</option>
+    <option value="imperfetto">Imparfait</option>
+    <option value="futuro">Futur</option>
+    <option value="condizionale">Conditionnel</option>
+    <option value="congiuntivo">Subjonctif</option>
+  </select>
+  <select id="verbi-person" onchange="verbiBuild()">
+    <option value="all">Toutes les personnes</option>
+    <option value="0">1PP — io</option>
+    <option value="1">2PP — tu</option>
+    <option value="2">3PP — lui/lei</option>
+    <option value="3">4PP — noi</option>
+    <option value="4">5PP — voi</option>
+    <option value="5">6PP — loro</option>
+  </select>
+  <button onclick="verbiBuild()">Mélanger</button>
+</div>
+<div class="tense-filter" id="verbi-tense-filter">
+  <button class="tense-chip active" data-tense="all" onclick="verbiSetTense('all')">Tous</button>
+  <button class="tense-chip" data-tense="presente" onclick="verbiSetTense('presente')">Présent</button>
+  <button class="tense-chip" data-tense="pc" onclick="verbiSetTense('pc')">Passé composé</button>
+  <button class="tense-chip" data-tense="imperfetto" onclick="verbiSetTense('imperfetto')">Imparfait</button>
+  <button class="tense-chip" data-tense="futuro" onclick="verbiSetTense('futuro')">Futur</button>
+  <button class="tense-chip" data-tense="condizionale" onclick="verbiSetTense('condizionale')">Conditionnel</button>
+  <button class="tense-chip" data-tense="congiuntivo" onclick="verbiSetTense('congiuntivo')">Subjonctif</button>
+</div>
+<div class="verbi-stats">
+  <div class="stat"><div class="stat-n" id="verbi-s-total">—</div><div class="stat-l">total</div></div>
+  <div class="stat"><div class="stat-n ok-n" id="verbi-s-ok">0</div><div class="stat-l">corrects</div></div>
+  <div class="stat"><div class="stat-n ko-n" id="verbi-s-ko">0</div><div class="stat-l">erreurs</div></div>
+  <div class="stat"><div class="stat-n" id="verbi-s-pct">—</div><div class="stat-l">score</div></div>
+</div>
+<div class="pbar"><div class="pfill" id="verbi-pbar" style="width:0%"></div></div>
+<div class="verbi-card" id="verbi-card">
+  <div style="text-align:center;margin-bottom:8px">
+    <span class="verbi-person-badge" id="verbi-person-lbl">1PP — io</span><br>
+    <span class="verbi-tense-badge" id="verbi-tense-lbl">Présent</span>
+  </div>
+  <div class="verbi-question" id="verbi-question">—</div>
+  <div class="verbi-sub" id="verbi-sub"></div>
+  <div class="verbi-input-row">
+    <input type="text" id="verbi-input" class="verbi-input" placeholder="Ta réponse…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button class="verbi-btn" onclick="verbiCheck()">OK</button>
+  </div>
+  <div class="verbi-hint" id="verbi-hint"></div>
+  <div id="verbi-feedback" class="verbi-feedback"></div>
+  <button class="verbi-next" id="verbi-next" onclick="verbiNext()">Suivant →</button>
+</div>
+<div class="nav">
+  <button onclick="verbiGo(-1)">← Préc.</button>
+  <span class="nav-info" id="verbi-nav-info">—</span>
+  <button onclick="verbiGo(1)">Suiv. →</button>
+</div>
+</div>
+
 <nav class="bottom-nav">
-  <button class="bnav-btn active" id="bn-vocab" onclick="showTab('vocab')">Vocabulaire</button>
+  <button class="bnav-btn active" id="bn-vocab" onclick="showTab('vocab')">Vocab</button>
   <button class="bnav-btn" id="bn-gram" onclick="showTab('gram')">Grammaire</button>
   <button class="bnav-btn" id="bn-quiz" onclick="showTab('quiz')">Exercices</button>
+  <button class="bnav-btn" id="bn-verbi" onclick="showTab('verbi')">Verbes</button>
   <button class="bnav-btn" id="bn-defi" onclick="showTab('defi')">Défi</button>
 </nav>
 <div class="toast" id="toast-el"></div>
@@ -331,13 +428,14 @@ function showToast(msg) {
 }
 
 function showTab(tab) {
-  ['vocab','gram','quiz','defi'].forEach(function(p) {
+  ['vocab','gram','quiz','verbi','defi'].forEach(function(p) {
     document.getElementById('page-'+p).style.display = p === tab ? 'block' : 'none';
     document.getElementById('bn-'+p).classList.toggle('active', p === tab);
   });
   if (tab !== 'defi') document.getElementById('defi-fixed-bar').style.display = 'none';
   if (tab === 'gram' && !gramInited) { gramInit(); gramInited = true; }
   if (tab === 'quiz' && !quizInited) { quizInit(); quizInited = true; }
+  if (tab === 'verbi' && !verbiInited) { verbiBuild(); verbiInited = true; }
   if (tab === 'defi') { defiInitTab(); }
 }
 
@@ -2564,6 +2662,682 @@ function buildSubjAvance() {
 function buildSyntaxe() {
   return '<div class="gram-card"><h3>Constructions implicites (C1)</h3><table class="conj-table"><tr><th>Type</th><th>Usage</th><th>Exemple</th></tr><tr><td>Infinitif pass\u00e9</td><td>Apr\u00e8s dopo</td><td>Dopo aver mangiato, usc\u00ec.</td></tr><tr><td>G\u00e9rondif pr\u00e9s.</td><td>Simultan\u00e9it\u00e9 / moyen</td><td>Studiando ogni giorno, migliora.</td></tr><tr><td>G\u00e9rondif pass\u00e9</td><td>Ant\u00e9riorit\u00e9</td><td>Avendo studiato, super\u00f2 l\'esame.</td></tr><tr><td>Participe absolu</td><td>Cause / temps</td><td>Finita la cena, andammo via.</td></tr></table><div class="rule-box">Le sujet du verbe implicite doit \u00eatre le m\u00eame que celui de la principale.</div></div><div class="gram-card"><h3>Forme passive (C1)</h3><table class="conj-table"><tr><th>Auxiliaire</th><th>Usage</th><th>Exemple</th></tr><tr><td>essere + pp</td><td>Passif standard</td><td>Il libro \u00e8 stato scritto da Eco.</td></tr><tr><td>venire + pp</td><td>Passif d\'action (pr\u00e9s./imp.)</td><td>Il libro viene letto da tutti.</td></tr><tr><td>andare + pp</td><td>Obligation / n\u00e9cessit\u00e9</td><td>Questo lavoro va fatto oggi.</td></tr><tr><td>si passivante</td><td>Agent ind\u00e9termin\u00e9</td><td>Si vende appartamento.</td></tr></table></div><div class="gram-card"><h3>Concordance des temps \u2014 style indirect (C1-C2)</h3><table class="conj-table"><tr><th>Direct</th><th>Indirect (verbe pr\u00e9s.)</th><th>Indirect (verbe pass\u00e9)</th></tr><tr><td>Sono stanco</td><td>Dice che \u00e8 stanco</td><td>Disse che era stanco</td></tr><tr><td>Verr\u00f2</td><td>Dice che verr\u00e0</td><td>Disse che sarebbe venuto</td></tr><tr><td>Ho mangiato</td><td>Dice che ha mangiato</td><td>Disse che aveva mangiato</td></tr><tr><td>Vieni!</td><td>Dice di venire</td><td>Disse di venire</td></tr><tr><td>Dove abiti?</td><td>Chiede dove abiti</td><td>Chiese dove abitasse</td></tr></table></div><div class="gram-card"><h3>Propositions circonstancielles (C1-C2)</h3><table class="conj-table"><tr><th>Type</th><th>Conjonctions</th><th>Mode</th></tr><tr><td>Concessive</td><td>bench\u00e9, sebbene, nonostante (che)</td><td>Subjonctif</td></tr><tr><td>Finale</td><td>affinch\u00e9, perch\u00e9 (but)</td><td>Subjonctif</td></tr><tr><td>Temporelle</td><td>quando, mentre, appena, finch\u00e9</td><td>Indicatif</td></tr><tr><td>Causale</td><td>perch\u00e9 (cause), poich\u00e9, siccome</td><td>Indicatif</td></tr><tr><td>Conditionnelle</td><td>se, qualora, purch\u00e9</td><td>Variable</td></tr></table><div class="rule-box"><strong>CUI vs CHE :</strong> che = sujet/COD ; cui = apr\u00e8s pr\u00e9position (<em>il libro di cui parlo</em>). Il quale/la quale = forme longue pour \u00e9viter l\'ambigu\u00eft\u00e9.</div></div>';
 }
+
+
+// =========================================================
+//  MOTEUR DE CONJUGAISON — RÉVISION VERBES
+// =========================================================
+
+// Personnes
+var PERSONS = [
+  {lbl:'1PP — io',    pr:'io'},
+  {lbl:'2PP — tu',    pr:'tu'},
+  {lbl:'3PP — lui/lei', pr:'lui/lei'},
+  {lbl:'4PP — noi',   pr:'noi'},
+  {lbl:'5PP — voi',   pr:'voi'},
+  {lbl:'6PP — loro',  pr:'loro'}
+];
+
+var TENSE_LABELS = {
+  presente:    'Présent',
+  pc:          'Passé composé',
+  imperfetto:  'Imparfait',
+  futuro:      'Futur simple',
+  condizionale:'Conditionnel',
+  congiuntivo: 'Subjonctif présent'
+};
+
+// ---- TABLE DE CONJUGAISON ----
+// Format: { infinito_it: [[p0,p1,p2,p3,p4,p5], ...par temps] }
+// Ordre temps: presente, pc, imperfetto, futuro, condizionale, congiuntivo
+
+// Auxiliaires pour PC
+var AUX_AVERE  = ['ho','hai','ha','abbiamo','avete','hanno'];
+var AUX_ESSERE = ['sono','sei','è','siamo','siete','sono'];
+
+// Conjugaisons régulières par terminaison
+function conjRegolare(inf, aux) {
+  // Détermine terminaison et radical
+  var stem, tipo;
+  if (inf.slice(-3) === 'are') { stem = inf.slice(0,-3); tipo = 'are'; }
+  else if (inf.slice(-3) === 'ere') { stem = inf.slice(0,-3); tipo = 'ere'; }
+  else if (inf.slice(-3) === 'ire') { stem = inf.slice(0,-3); tipo = 'ire'; }
+  else return null;
+
+  var pres, pc_pp, imp, fut_stem, pp;
+
+  if (tipo === 'are') {
+    pres = [stem+'o',stem+'i',stem+'a',stem+'iamo',stem+'ate',stem+'ano'];
+    pp   = stem+'ato';
+    imp  = [stem+'avo',stem+'avi',stem+'ava',stem+'avamo',stem+'avate',stem+'avano'];
+    fut_stem = inf.slice(0,-1); // parlare -> parlar
+  } else if (tipo === 'ere') {
+    pres = [stem+'o',stem+'i',stem+'e',stem+'iamo',stem+'ete',stem+'ono'];
+    pp   = stem+'uto';
+    imp  = [stem+'evo',stem+'evi',stem+'eva',stem+'evamo',stem+'evate',stem+'evano'];
+    fut_stem = inf.slice(0,-1);
+  } else {
+    // -ire: deux sous-groupes, par défaut -isc-
+    pres = [stem+'isco',stem+'isci',stem+'isce',stem+'iamo',stem+'ite',stem+'iscono'];
+    pp   = stem+'ito';
+    imp  = [stem+'ivo',stem+'ivi',stem+'iva',stem+'ivamo',stem+'ivate',stem+'ivano'];
+    fut_stem = inf.slice(0,-1);
+  }
+
+  var futSuf = ['ò','ai','à','emo','ete','anno'];
+  var condSuf = ['ei','esti','ebbe','emmo','este','ebbero'];
+  var fut  = futSuf.map(function(s){ return fut_stem+s; });
+  var cond = condSuf.map(function(s){ return fut_stem+s; });
+
+  // PC
+  var auxForms = (aux === 'essere') ? AUX_ESSERE : AUX_AVERE;
+  var pcForms;
+  if (aux === 'essere') {
+    pcForms = [
+      auxForms[0]+' '+pp.replace(/o$/,'o'),
+      auxForms[1]+' '+pp.replace(/o$/,'o'),
+      auxForms[2]+' '+pp.replace(/o$/,'o'),
+      auxForms[3]+' '+pp.replace(/o$/,'i'),
+      auxForms[4]+' '+pp.replace(/o$/,'e'),
+      auxForms[5]+' '+pp.replace(/o$/,'i')
+    ];
+  } else {
+    pcForms = auxForms.map(function(a){ return a+' '+pp; });
+  }
+
+  // Subjonctif présent
+  var conj;
+  if (tipo === 'are') {
+    conj = [stem+'i',stem+'i',stem+'i',stem+'iamo',stem+'iate',stem+'ino'];
+  } else if (tipo === 'ere') {
+    conj = [stem+'a',stem+'a',stem+'a',stem+'iamo',stem+'iate',stem+'ano'];
+  } else {
+    conj = [stem+'isca',stem+'isca',stem+'isca',stem+'iamo',stem+'iate',stem+'iscano'];
+  }
+
+  return { presente:pres, pc:pcForms, imperfetto:imp, futuro:fut, condizionale:cond, congiuntivo:conj };
+}
+
+// TABLE MANUELLE des irréguliers (les plus importants)
+var VERBI_IRREGO = {
+  // essere
+  'essere': {
+    presente:    ['sono','sei','è','siamo','siete','sono'],
+    pc:          ['sono stato/a','sei stato/a','è stato/a','siamo stati/e','siete stati/e','sono stati/e'],
+    imperfetto:  ['ero','eri','era','eravamo','eravate','erano'],
+    futuro:      ['sarò','sarai','sarà','saremo','sarete','saranno'],
+    condizionale:['sarei','saresti','sarebbe','saremmo','sareste','sarebbero'],
+    congiuntivo: ['sia','sia','sia','siamo','siate','siano']
+  },
+  'avere': {
+    presente:    ['ho','hai','ha','abbiamo','avete','hanno'],
+    pc:          ['ho avuto','hai avuto','ha avuto','abbiamo avuto','avete avuto','hanno avuto'],
+    imperfetto:  ['avevo','avevi','aveva','avevamo','avevate','avevano'],
+    futuro:      ['avrò','avrai','avrà','avremo','avrete','avranno'],
+    condizionale:['avrei','avresti','avrebbe','avremmo','avreste','avrebbero'],
+    congiuntivo: ['abbia','abbia','abbia','abbiamo','abbiate','abbiano']
+  },
+  'fare': {
+    presente:    ['faccio','fai','fa','facciamo','fate','fanno'],
+    pc:          ['ho fatto','hai fatto','ha fatto','abbiamo fatto','avete fatto','hanno fatto'],
+    imperfetto:  ['facevo','facevi','faceva','facevamo','facevate','facevano'],
+    futuro:      ['farò','farai','farà','faremo','farete','faranno'],
+    condizionale:['farei','faresti','farebbe','faremmo','fareste','farebbero'],
+    congiuntivo: ['faccia','faccia','faccia','facciamo','facciate','facciano']
+  },
+  'dire': {
+    presente:    ['dico','dici','dice','diciamo','dite','dicono'],
+    pc:          ['ho detto','hai detto','ha detto','abbiamo detto','avete detto','hanno detto'],
+    imperfetto:  ['dicevo','dicevi','diceva','dicevamo','dicevate','dicevano'],
+    futuro:      ['dirò','dirai','dirà','diremo','direte','diranno'],
+    condizionale:['direi','diresti','direbbe','diremmo','direste','direbbero'],
+    congiuntivo: ['dica','dica','dica','diciamo','diciate','dicano']
+  },
+  'andare': {
+    presente:    ['vado','vai','va','andiamo','andate','vanno'],
+    pc:          ['sono andato/a','sei andato/a','è andato/a','siamo andati/e','siete andati/e','sono andati/e'],
+    imperfetto:  ['andavo','andavi','andava','andavamo','andavate','andavano'],
+    futuro:      ['andrò','andrai','andrà','andremo','andrete','andranno'],
+    condizionale:['andrei','andresti','andrebbe','andremmo','andreste','andrebbero'],
+    congiuntivo: ['vada','vada','vada','andiamo','andiate','vadano']
+  },
+  'venire': {
+    presente:    ['vengo','vieni','viene','veniamo','venite','vengono'],
+    pc:          ['sono venuto/a','sei venuto/a','è venuto/a','siamo venuti/e','siete venuti/e','sono venuti/e'],
+    imperfetto:  ['venivo','venivi','veniva','venivamo','venivate','venivano'],
+    futuro:      ['verrò','verrai','verrà','verremo','verrete','verranno'],
+    condizionale:['verrei','verresti','verrebbe','verremmo','verreste','verrebbero'],
+    congiuntivo: ['venga','venga','venga','veniamo','veniate','vengano']
+  },
+  'volere': {
+    presente:    ['voglio','vuoi','vuole','vogliamo','volete','vogliono'],
+    pc:          ['ho voluto','hai voluto','ha voluto','abbiamo voluto','avete voluto','hanno voluto'],
+    imperfetto:  ['volevo','volevi','voleva','volevamo','volevate','volevano'],
+    futuro:      ['vorrò','vorrai','vorrà','vorremo','vorrete','vorranno'],
+    condizionale:['vorrei','vorresti','vorrebbe','vorremmo','vorreste','vorrebbero'],
+    congiuntivo: ['voglia','voglia','voglia','vogliamo','vogliate','vogliano']
+  },
+  'potere': {
+    presente:    ['posso','puoi','può','possiamo','potete','possono'],
+    pc:          ['ho potuto','hai potuto','ha potuto','abbiamo potuto','avete potuto','hanno potuto'],
+    imperfetto:  ['potevo','potevi','poteva','potevamo','potevate','potevano'],
+    futuro:      ['potrò','potrai','potrà','potremo','potrete','potranno'],
+    condizionale:['potrei','potresti','potrebbe','potremmo','potreste','potrebbero'],
+    congiuntivo: ['possa','possa','possa','possiamo','possiate','possano']
+  },
+  'dovere': {
+    presente:    ['devo','devi','deve','dobbiamo','dovete','devono'],
+    pc:          ['ho dovuto','hai dovuto','ha dovuto','abbiamo dovuto','avete dovuto','hanno dovuto'],
+    imperfetto:  ['dovevo','dovevi','doveva','dovevamo','dovevate','dovevano'],
+    futuro:      ['dovrò','dovrai','dovrà','dovremo','dovrete','dovranno'],
+    condizionale:['dovrei','dovresti','dovrebbe','dovremmo','dovreste','dovrebbero'],
+    congiuntivo: ['debba','debba','debba','dobbiamo','dobbiate','debbano']
+  },
+  'sapere': {
+    presente:    ['so','sai','sa','sappiamo','sapete','sanno'],
+    pc:          ['ho saputo','hai saputo','ha saputo','abbiamo saputo','avete saputo','hanno saputo'],
+    imperfetto:  ['sapevo','sapevi','sapeva','sapevamo','sapevate','sapevano'],
+    futuro:      ['saprò','saprai','saprà','sapremo','saprete','sapranno'],
+    condizionale:['saprei','sapresti','saprebbe','sapremmo','sapreste','saprebbero'],
+    congiuntivo: ['sappia','sappia','sappia','sappiamo','sappiate','sappiano']
+  },
+  'uscire': {
+    presente:    ['esco','esci','esce','usciamo','uscite','escono'],
+    pc:          ['sono uscito/a','sei uscito/a','è uscito/a','siamo usciti/e','siete usciti/e','sono usciti/e'],
+    imperfetto:  ['uscivo','uscivi','usciva','uscivamo','uscivate','uscivano'],
+    futuro:      ['uscirò','uscirai','uscirà','usciremo','uscirete','usciranno'],
+    condizionale:['uscirei','usciresti','uscirebbe','usciremmo','uscireste','uscirebbero'],
+    congiuntivo: ['esca','esca','esca','usciamo','usciate','escano']
+  },
+  'vedere': {
+    presente:    ['vedo','vedi','vede','vediamo','vedete','vedono'],
+    pc:          ['ho visto','hai visto','ha visto','abbiamo visto','avete visto','hanno visto'],
+    imperfetto:  ['vedevo','vedevi','vedeva','vedevamo','vedevate','vedevano'],
+    futuro:      ['vedrò','vedrai','vedrà','vedremo','vedrete','vedranno'],
+    condizionale:['vedrei','vedresti','vedrebbe','vedremmo','vedreste','vedrebbero'],
+    congiuntivo: ['veda','veda','veda','vediamo','vediate','vedano']
+  },
+  'prendere': {
+    presente:    ['prendo','prendi','prende','prendiamo','prendete','prendono'],
+    pc:          ['ho preso','hai preso','ha preso','abbiamo preso','avete preso','hanno preso'],
+    imperfetto:  ['prendevo','prendevi','prendeva','prendevamo','prendevate','prendevano'],
+    futuro:      ['prenderò','prenderai','prenderà','prenderemo','prenderete','prenderanno'],
+    condizionale:['prenderei','prenderesti','prenderebbe','prenderemmo','prendereste','prenderebbero'],
+    congiuntivo: ['prenda','prenda','prenda','prendiamo','prendiate','prendano']
+  },
+  'mettere': {
+    presente:    ['metto','metti','mette','mettiamo','mettete','mettono'],
+    pc:          ['ho messo','hai messo','ha messo','abbiamo messo','avete messo','hanno messo'],
+    imperfetto:  ['mettevo','mettevi','metteva','mettevamo','mettevate','mettevano'],
+    futuro:      ['metterò','metterai','metterà','metteremo','metterete','metteranno'],
+    condizionale:['metterei','metteresti','metterebbe','metteremmo','mettereste','metterebbero'],
+    congiuntivo: ['metta','metta','metta','mettiamo','mettiate','mettano']
+  },
+  'scrivere': {
+    presente:    ['scrivo','scrivi','scrive','scriviamo','scrivete','scrivono'],
+    pc:          ['ho scritto','hai scritto','ha scritto','abbiamo scritto','avete scritto','hanno scritto'],
+    imperfetto:  ['scrivevo','scrivevi','scriveva','scrivevamo','scrivevate','scrivevano'],
+    futuro:      ['scriverò','scriverai','scriverà','scriveremo','scriverete','scriveranno'],
+    condizionale:['scriverei','scriveresti','scriverebbe','scriveremmo','scrivereste','scriverebbero'],
+    congiuntivo: ['scriva','scriva','scriva','scriviamo','scriviate','scrivano']
+  },
+  'leggere': {
+    presente:    ['leggo','leggi','legge','leggiamo','leggete','leggono'],
+    pc:          ['ho letto','hai letto','ha letto','abbiamo letto','avete letto','hanno letto'],
+    imperfetto:  ['leggevo','leggevi','leggeva','leggevamo','leggevate','leggevano'],
+    futuro:      ['leggerò','leggerai','leggerà','leggeremo','leggerete','leggeranno'],
+    condizionale:['leggerei','leggeresti','leggerebbe','leggeremmo','leggereste','leggerebbero'],
+    congiuntivo: ['legga','legga','legga','leggiamo','leggiate','leggano']
+  },
+  'aprire': {
+    presente:    ['apro','apri','apre','apriamo','aprite','aprono'],
+    pc:          ['ho aperto','hai aperto','ha aperto','abbiamo aperto','avete aperto','hanno aperto'],
+    imperfetto:  ['aprivo','aprivi','apriva','aprivamo','aprivate','aprivano'],
+    futuro:      ['aprirò','aprirai','aprirà','apriremo','aprirete','apriranno'],
+    condizionale:['aprirei','apriresti','aprirebbe','apriremmo','aprireste','aprirebbero'],
+    congiuntivo: ['apra','apra','apra','apriamo','apriate','aprano']
+  },
+  'dormire': {
+    presente:    ['dormo','dormi','dorme','dormiamo','dormite','dormono'],
+    pc:          ['ho dormito','hai dormito','ha dormito','abbiamo dormito','avete dormito','hanno dormito'],
+    imperfetto:  ['dormivo','dormivi','dormiva','dormivamo','dormivate','dormivano'],
+    futuro:      ['dormirò','dormirai','dormirà','dormiremo','dormirete','dormiranno'],
+    condizionale:['dormirei','dormiresti','dormirebbe','dormiremmo','dormireste','dormirebbero'],
+    congiuntivo: ['dorma','dorma','dorma','dormiamo','dormiate','dormano']
+  },
+  'bere': {
+    presente:    ['bevo','bevi','beve','beviamo','bevete','bevono'],
+    pc:          ['ho bevuto','hai bevuto','ha bevuto','abbiamo bevuto','avete bevuto','hanno bevuto'],
+    imperfetto:  ['bevevo','bevevi','beveva','bevevamo','bevevate','bevevano'],
+    futuro:      ['berrò','berrai','berrà','berremo','berrete','berranno'],
+    condizionale:['berrei','berresti','berrebbe','berremmo','berreste','berrebbero'],
+    congiuntivo: ['beva','beva','beva','beviamo','beviate','bevano']
+  },
+  'rimanere': {
+    presente:    ['rimango','rimani','rimane','rimaniamo','rimanete','rimangono'],
+    pc:          ['sono rimasto/a','sei rimasto/a','è rimasto/a','siamo rimasti/e','siete rimasti/e','sono rimasti/e'],
+    imperfetto:  ['rimanevo','rimanevi','rimaneva','rimenevamo','rimenevate','rimanevano'],
+    futuro:      ['rimarrò','rimarrai','rimarrà','rimarremo','rimarrete','rimarranno'],
+    condizionale:['rimarrei','rimarresti','rimarrebbe','rimarremmo','rimarreste','rimarrebbero'],
+    congiuntivo: ['rimanga','rimanga','rimanga','rimaniamo','rimaniate','rimangano']
+  },
+  'scegliere': {
+    presente:    ['scelgo','scegli','sceglie','scegliamo','scegliete','scelgono'],
+    pc:          ['ho scelto','hai scelto','ha scelto','abbiamo scelto','avete scelto','hanno scelto'],
+    imperfetto:  ['sceglievo','sceglievi','sceglieva','sceglievamo','sceglievate','sceglievano'],
+    futuro:      ['sceglierò','sceglierai','sceglierà','sceglieremo','sceglierete','sceglieranno'],
+    condizionale:['sceglierei','sceglieresti','sceglierebbe','sceglieremmo','scegliereste','sceglierebbero'],
+    congiuntivo: ['scelga','scelga','scelga','scegliamo','scegliate','scelgano']
+  },
+  'salire': {
+    presente:    ['salgo','sali','sale','saliamo','salite','salgono'],
+    pc:          ['sono salito/a','sei salito/a','è salito/a','siamo saliti/e','siete saliti/e','sono saliti/e'],
+    imperfetto:  ['salivo','salivi','saliva','salivamo','salivate','salivano'],
+    futuro:      ['salirò','salirai','salirà','saliremo','salirete','saliranno'],
+    condizionale:['salirei','saliresti','salirebbe','saliremmo','salireste','salirebbero'],
+    congiuntivo: ['salga','salga','salga','saliamo','saliate','salgano']
+  },
+  'cadere': {
+    presente:    ['cado','cadi','cade','cadiamo','cadete','cadono'],
+    pc:          ['sono caduto/a','sei caduto/a','è caduto/a','siamo caduti/e','siete caduti/e','sono caduti/e'],
+    imperfetto:  ['cadevo','cadevi','cadeva','cadevamo','cadevate','cadevano'],
+    futuro:      ['cadrò','cadrai','cadrà','cadremo','cadrete','cadranno'],
+    condizionale:['cadrei','cadresti','cadrebbe','cadremmo','cadreste','cadrebbero'],
+    congiuntivo: ['cada','cada','cada','cadiamo','cadiate','cadano']
+  },
+  'morire': {
+    presente:    ['muoio','muori','muore','moriamo','morite','muoiono'],
+    pc:          ['sono morto/a','sei morto/a','è morto/a','siamo morti/e','siete morti/e','sono morti/e'],
+    imperfetto:  ['morivo','morivi','moriva','morivamo','morivate','morivano'],
+    futuro:      ['morrò','morrai','morrà','morremo','morrete','morranno'],
+    condizionale:['morrei','morresti','morrebbe','morremmo','morreste','morrebbero'],
+    congiuntivo: ['muoia','muoia','muoia','moriamo','moriate','muoiano']
+  },
+  'tenere': {
+    presente:    ['tengo','tieni','tiene','teniamo','tenete','tengono'],
+    pc:          ['ho tenuto','hai tenuto','ha tenuto','abbiamo tenuto','avete tenuto','hanno tenuto'],
+    imperfetto:  ['tenevo','tenevi','teneva','tenevamo','tenevate','tenevano'],
+    futuro:      ['terrò','terrai','terrà','terremo','terrete','terranno'],
+    condizionale:['terrei','terresti','terrebbe','terremmo','terreste','terrebbero'],
+    congiuntivo: ['tenga','tenga','tenga','teniamo','teniate','tengano']
+  },
+  'perdere': {
+    presente:    ['perdo','perdi','perde','perdiamo','perdete','perdono'],
+    pc:          ['ho perso','hai perso','ha perso','abbiamo perso','avete perso','hanno perso'],
+    imperfetto:  ['perdevo','perdevi','perdeva','perdevamo','perdevate','perdevano'],
+    futuro:      ['perderò','perderai','perderà','perderemo','perderete','perderanno'],
+    condizionale:['perderei','perderesti','perderebbe','perderemmo','perdereste','perderebbero'],
+    congiuntivo: ['perda','perda','perda','perdiamo','perdiate','perdano']
+  },
+  'correre': {
+    presente:    ['corro','corri','corre','corriamo','correte','corrono'],
+    pc:          ['ho corso','hai corso','ha corso','abbiamo corso','avete corso','hanno corso'],
+    imperfetto:  ['correvo','correvi','correva','correvamo','correvate','correvano'],
+    futuro:      ['correrò','correrai','correrà','correremo','correrete','correranno'],
+    condizionale:['correrei','correresti','correrebbe','correremmo','correreste','correrebbero'],
+    congiuntivo: ['corra','corra','corra','corriamo','corriate','corrano']
+  },
+  'ridere': {
+    presente:    ['rido','ridi','ride','ridiamo','ridete','ridono'],
+    pc:          ['ho riso','hai riso','ha riso','abbiamo riso','avete riso','hanno riso'],
+    imperfetto:  ['ridevo','ridevi','rideva','ridevamo','ridevate','ridevano'],
+    futuro:      ['riderò','riderai','riderà','rideremo','riderete','rideranno'],
+    condizionale:['riderei','rideresti','riderebbe','rideremmo','ridereste','riderebbero'],
+    congiuntivo: ['rida','rida','rida','ridiamo','ridiate','ridano']
+  },
+  'piangere': {
+    presente:    ['piango','piangi','piange','piangiamo','piangete','piangono'],
+    pc:          ['ho pianto','hai pianto','ha pianto','abbiamo pianto','avete pianto','hanno pianto'],
+    imperfetto:  ['piangevo','piangevi','piangeva','piangevamo','piangevate','piangevano'],
+    futuro:      ['piangerò','piangerai','piangerà','piangeremo','piangerete','piangeranno'],
+    condizionale:['piangerei','piangeresti','piangerebbe','piangeremmo','piangereste','piangerebbero'],
+    congiuntivo: ['pianga','pianga','pianga','piangiamo','piangiate','piangano']
+  },
+  'vincere': {
+    presente:    ['vinco','vinci','vince','vinciamo','vincete','vincono'],
+    pc:          ['ho vinto','hai vinto','ha vinto','abbiamo vinto','avete vinto','hanno vinto'],
+    imperfetto:  ['vincevo','vincevi','vinceva','vincevamo','vincevate','vincevano'],
+    futuro:      ['vincerò','vincerai','vincerà','vinceremo','vincerete','vinceranno'],
+    condizionale:['vincerei','vinceresti','vincerebbe','vinceremmo','vincereste','vincerebbero'],
+    congiuntivo: ['vinca','vinca','vinca','vinciamo','vinciate','vincano']
+  },
+  'costruire': {
+    presente:    ['costruisco','costruisci','costruisce','costruiamo','costruite','costruiscono'],
+    pc:          ['ho costruito','hai costruito','ha costruito','abbiamo costruito','avete costruito','hanno costruito'],
+    imperfetto:  ['costruivo','costruivi','costruiva','costruivamo','costruivate','costruivano'],
+    futuro:      ['costruirò','costruirai','costruirà','costruiremo','costruirete','costruiranno'],
+    condizionale:['costruirei','costruiresti','costruirebbe','costruiremmo','costruireste','costruirebbero'],
+    congiuntivo: ['costruisca','costruisca','costruisca','costruiamo','costruiate','costruiscano']
+  },
+  'arrivare': {
+    presente:    ['arrivo','arrivi','arriva','arriviamo','arrivate','arrivano'],
+    pc:          ['sono arrivato/a','sei arrivato/a','è arrivato/a','siamo arrivati/e','siete arrivati/e','sono arrivati/e'],
+    imperfetto:  ['arrivavo','arrivavi','arrivava','arrivavamo','arrivavate','arrivavano'],
+    futuro:      ['arriverò','arriverai','arriverà','arriveremo','arriverete','arriveranno'],
+    condizionale:['arriverei','arriveresti','arriverebbe','arriveremmo','arrivereste','arriverebbero'],
+    congiuntivo: ['arrivi','arrivi','arrivi','arriviamo','arriviate','arrivino']
+  },
+  'partire': {
+    presente:    ['parto','parti','parte','partiamo','partite','partono'],
+    pc:          ['sono partito/a','sei partito/a','è partito/a','siamo partiti/e','siete partiti/e','sono partiti/e'],
+    imperfetto:  ['partivo','partivi','partiva','partivamo','partivate','partivano'],
+    futuro:      ['partirò','partirai','partirà','partiremo','partirete','partiranno'],
+    condizionale:['partirei','partiresti','partirebbe','partiremmo','partireste','partirebbero'],
+    congiuntivo: ['parta','parta','parta','partiamo','partiate','partano']
+  },
+  'entrare': {
+    presente:    ['entro','entri','entra','entriamo','entrate','entrano'],
+    pc:          ['sono entrato/a','sei entrato/a','è entrato/a','siamo entrati/e','siete entrati/e','sono entrati/e'],
+    imperfetto:  ['entravo','entravi','entrava','entravamo','entravate','entravano'],
+    futuro:      ['entrerò','entrerai','entrerà','entreremo','entrerete','entreranno'],
+    condizionale:['entrerei','entreresti','entrerebbe','entreremmo','entrereste','entrerebbero'],
+    congiuntivo: ['entri','entri','entri','entriamo','entriate','entrino']
+  },
+  'uscire': {
+    presente:    ['esco','esci','esce','usciamo','uscite','escono'],
+    pc:          ['sono uscito/a','sei uscito/a','è uscito/a','siamo usciti/e','siete usciti/e','sono usciti/e'],
+    imperfetto:  ['uscivo','uscivi','usciva','uscivamo','uscivate','uscivano'],
+    futuro:      ['uscirò','uscirai','uscirà','usciremo','uscirete','usciranno'],
+    condizionale:['uscirei','usciresti','uscirebbe','usciremmo','uscireste','uscirebbero'],
+    congiuntivo: ['esca','esca','esca','usciamo','usciate','escano']
+  },
+  'tradurre': {
+    presente:    ['traduco','traduci','traduce','traduciamo','traducete','traducono'],
+    pc:          ['ho tradotto','hai tradotto','ha tradotto','abbiamo tradotto','avete tradotto','hanno tradotto'],
+    imperfetto:  ['traducevo','traducevi','traduceva','traducevamo','traducevate','traducevano'],
+    futuro:      ['tradurrò','tradurrai','tradurrà','tradurremo','tradurrete','tradurranno'],
+    condizionale:['tradurrei','tradurresti','tradurrebbe','tradurremmo','tradurreste','tradurrebbero'],
+    congiuntivo: ['traduca','traduca','traduca','traduciamo','traduciate','traducano']
+  },
+  'supporre': {
+    presente:    ['suppongo','supponi','suppone','supponiamo','supponete','suppongono'],
+    pc:          ['ho supposto','hai supposto','ha supposto','abbiamo supposto','avete supposto','hanno supposto'],
+    imperfetto:  ['supponevo','supponevi','supponeva','supponevamo','supponevate','supponevano'],
+    futuro:      ['supporrò','supporrai','supporrà','supporremo','supporrete','supporranno'],
+    condizionale:['supporrei','supporresti','supporrebbe','supporremo','supporreste','supporrebbero'],
+    congiuntivo: ['supponga','supponga','supponga','supponiamo','supponiate','suppongano']
+  },
+  'aggiungere': {
+    presente:    ['aggiungo','aggiungi','aggiunge','aggiungiamo','aggiungete','aggiungono'],
+    pc:          ['ho aggiunto','hai aggiunto','ha aggiunto','abbiamo aggiunto','avete aggiunto','hanno aggiunto'],
+    imperfetto:  ['aggiungevo','aggiungevi','aggiungeva','aggiunge­vamo','aggiunge­vate','aggiungevano'],
+    futuro:      ['aggiungerò','aggiungerai','aggiungerà','aggiungeremo','aggiungerete','aggiungeranno'],
+    condizionale:['aggiungerei','aggiungeresti','aggiungerebbe','aggiunge­remmo','aggiunge­reste','aggiunge­rebbero'],
+    congiuntivo: ['aggiunga','aggiunga','aggiunga','aggiungiamo','aggiungiate','aggiungano']
+  },
+  'capire': {
+    presente:    ['capisco','capisci','capisce','capiamo','capite','capiscono'],
+    pc:          ['ho capito','hai capito','ha capito','abbiamo capito','avete capito','hanno capito'],
+    imperfetto:  ['capivo','capivi','capiva','capivamo','capivate','capivano'],
+    futuro:      ['capirò','capirai','capirà','capiremo','capirete','capiranno'],
+    condizionale:['capirei','capiresti','capirebbe','capiremmo','capireste','capirebbero'],
+    congiuntivo: ['capisca','capisca','capisca','capiamo','capiate','capiscano']
+  },
+  'finire': {
+    presente:    ['finisco','finisci','finisce','finiamo','finite','finiscono'],
+    pc:          ['ho finito','hai finito','ha finito','abbiamo finito','avete finito','hanno finito'],
+    imperfetto:  ['finivo','finivi','finiva','finivamo','finivate','finivano'],
+    futuro:      ['finirò','finirai','finirà','finiremo','finirete','finiranno'],
+    condizionale:['finirei','finiresti','finirebbe','finiremmo','finireste','finirebbero'],
+    congiuntivo: ['finisca','finisca','finisca','finiamo','finite','finiscano']
+  },
+  'preferire': {
+    presente:    ['preferisco','preferisci','preferisce','preferiamo','preferite','preferiscono'],
+    pc:          ['ho preferito','hai preferito','ha preferito','abbiamo preferito','avete preferito','hanno preferito'],
+    imperfetto:  ['preferivo','preferivi','preferiva','preferivamo','preferivate','preferivano'],
+    futuro:      ['preferirò','preferirai','preferirà','preferiremo','preferirete','preferiranno'],
+    condizionale:['preferirei','preferiresti','preferirebbe','preferiremmo','preferireste','preferirebbero'],
+    congiuntivo: ['preferisca','preferisca','preferisca','preferiamo','preferiate','preferiscano']
+  },
+  'riuscire': {
+    presente:    ['riesco','riesci','riesce','riusciamo','riuscite','riescono'],
+    pc:          ['sono riuscito/a','sei riuscito/a','è riuscito/a','siamo riusciti/e','siete riusciti/e','sono riusciti/e'],
+    imperfetto:  ['riuscivo','riuscivi','riusciva','riuscivamo','riuscivate','riuscivano'],
+    futuro:      ['riuscirò','riuscirai','riuscirà','riusciremo','riuscirete','riusciranno'],
+    condizionale:['riuscirei','riusciresti','riuscirebbe','riusciremmo','riuscireste','riuscirebbero'],
+    congiuntivo: ['riesca','riesca','riesca','riusciamo','riusciate','riescano']
+  }
+};
+
+// Mapping infinitifs français→italien pour retrouver les conjugaisons
+var VERBI_MAP = {
+  'être':'essere','avoir':'avere','faire':'fare','dire':'dire',
+  'pouvoir':'potere','aller':'andare','voir':'vedere','savoir':'sapere',
+  'vouloir':'volere','venir':'venire','devoir':'dovere','croire':'credere',
+  'trouver':'trovare','donner':'dare','prendre':'prendere','parler':'parlare',
+  'aimer':'amare','passer':'passare','mettre':'mettere','tenir':'tenere',
+  'sembler':'sembrare','laisser':'lasciare','rester':'restare','penser':'pensare',
+  'entendre':'sentire','regarder':'guardare','répondre':'rispondere','rendre':'rendere',
+  'connaître':'conoscere','arriver':'arrivare','attendre':'aspettare','vivre':'vivere',
+  'chercher':'cercare','sortir':'uscire','comprendre':'capire','porter':'portare',
+  'devenir':'diventare','entrer':'entrare','écrire':'scrivere','appeler':'chiamare',
+  'tomber':'cadere','commencer':'cominciare','suivre':'seguire','montrer':'mostrare',
+  'partir':'partire','mourir':'morire','ouvrir':'aprire','lire':'leggere',
+  'perdre':'perdere','écouter':'ascoltare','continuer':'continuare','sourire':'sorridere',
+  'jouer':'giocare','marcher':'camminare','manquer':'mancare','descendre':'scendere',
+  'tourner':'girare','finir':'finire','courir':'correre','chanter':'cantare',
+  'oublier':'dimenticare','dormir':'dormire','acheter':'comprare','vendre':'vendere',
+  'payer':'pagare','manger':'mangiare','boire':'bere','apprendre':'imparare',
+  'changer':'cambiare','choisir':'scegliere','décider':'decidere','expliquer':'spiegare',
+  'gagner':'vincere','essayer':'provare','espérer':'sperare','rire':'ridere',
+  'pleurer':'piangere','créer':'creare','construire':'costruire','travailler':'lavorare',
+  'étudier':'studiare','présenter':'presentare','accepter':'accettare','refuser':'rifiutare',
+  'aider':'aiutare','réussir':'riuscire','voyager':'viaggiare','inviter':'invitare',
+  'organiser':'organizzare','préparer':'preparare','utiliser':'usare','profiter':'godere',
+  'casser':'rompere','couper':'tagliare','cacher':'nascondere','sauver':'salvare',
+  'protéger':'proteggere','imaginer':'immaginare','découvrir':'scoprire','éviter':'evitare',
+  'promettre':'promettere','crier':'gridare','danser':'ballare','nager':'nuotare',
+  'cuisiner':'cucinare','nettoyer':'pulire','laver':'lavare','allumer':'accendere',
+  'éteindre':'spegnere','tirer':'tirare','pousser':'spingere','lancer':'lanciare',
+  'attraper':'afferrare','toucher':'toccare','goûter':'assaggiare','embrasser':'abbracciare',
+  'fumer':'fumare','dessiner':'disegnare','peindre':'dipingere','rêver':'sognare',
+  'pardonner':'perdonare','remercier':'ringraziare','saluer':'salutare','visiter':'visitare',
+  'rencontrer':'incontrare','résoudre':'risolvere','réfléchir':'riflettere',
+  'signifier':'significare','traduire':'tradurre','prononcer':'pronunciare',
+  'répéter':'ripetere','signer':'firmare','compter':'contare','calculer':'calcolare',
+  'mesurer':'misurare','peser':'pesare','remplir':'riempire','vider':'vuotare',
+  'brûler':'bruciare','chauffer':'riscaldare','partager':'condividere','gérer':'gestire'
+};
+
+// Auxiliaire être (pour PC)
+var AUX_ESSERE_VERBS = ['andare','venire','arrivare','partire','uscire','entrare',
+  'nascere','morire','restare','rimanere','diventare','tornare','salire','scendere',
+  'cadere','stare','essere','riuscire'];
+
+function getConj(inf_it) {
+  // Irrégulier direct
+  if (VERBI_IRREGO[inf_it]) return VERBI_IRREGO[inf_it];
+  // Régulier
+  var aux = AUX_ESSERE_VERBS.indexOf(inf_it) >= 0 ? 'essere' : 'avere';
+  return conjRegolare(inf_it, aux);
+}
+
+// ---- GÉNÉRATION DES QUESTIONS ----
+var verbiDeck = [], verbiIdx = 0, verbiAnswered = false, verbiInited = false;
+var verbiOk = 0, verbiKo = 0;
+var verbiCurrentTense = 'all';
+
+function verbiSetTense(tense) {
+  verbiCurrentTense = tense;
+  document.querySelectorAll('.tense-chip').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-tense') === tense);
+  });
+  document.getElementById('verbi-mode').value = tense;
+  verbiBuild();
+}
+
+function verbiBuild() {
+  var tense = document.getElementById('verbi-mode').value;
+  verbiCurrentTense = tense;
+  // Sync chips
+  document.querySelectorAll('.tense-chip').forEach(function(b) {
+    b.classList.toggle('active', b.getAttribute('data-tense') === tense);
+  });
+
+  var personFilter = document.getElementById('verbi-person').value;
+  var tenses = tense === 'all'
+    ? ['presente','pc','imperfetto','futuro','condizionale','congiuntivo']
+    : [tense];
+  var persons = personFilter === 'all' ? [0,1,2,3,4,5] : [parseInt(personFilter)];
+
+  // Construire le deck : pour chaque verbe FR dans ALL fiche 20, + verbes irrégo
+  var verbsFr = [];
+  var seen = {};
+  // Verbes de la fiche 20
+  ALL.filter(function(e){ return e && e.fiche === 'Fiche 20'; }).forEach(function(e) {
+    var fr = e.fr.toLowerCase().split(' / ')[0].trim();
+    if (!seen[fr]) { seen[fr] = true; verbsFr.push({fr: e.fr, it: e.it.split(' / ')[0].trim()}); }
+  });
+
+  var deck = [];
+  verbsFr.forEach(function(v) {
+    var inf_it = v.it.toLowerCase();
+    var conj = getConj(inf_it);
+    if (!conj) return;
+    tenses.forEach(function(t) {
+      if (!conj[t]) return;
+      persons.forEach(function(p) {
+        var form = conj[t][p];
+        if (!form) return;
+        deck.push({
+          fr: v.fr, it: inf_it, tense: t, person: p,
+          answer: form,
+          tenseLabel: TENSE_LABELS[t],
+          personLabel: PERSONS[p].lbl,
+          pronoun: PERSONS[p].pr
+        });
+      });
+    });
+  });
+
+  // Mélanger
+  for (var i = deck.length-1; i > 0; i--) {
+    var j = Math.floor(Math.random()*(i+1));
+    var tmp = deck[i]; deck[i] = deck[j]; deck[j] = tmp;
+  }
+
+  verbiDeck = deck;
+  verbiIdx = 0; verbiOk = 0; verbiKo = 0; verbiAnswered = false;
+  verbiUpdateStats();
+  if (deck.length) verbiRender();
+  else {
+    document.getElementById('verbi-question').textContent = 'Aucune question pour ces critères.';
+  }
+}
+
+function verbiRender() {
+  if (!verbiDeck.length) return;
+  if (verbiIdx >= verbiDeck.length) verbiIdx = 0;
+  var q = verbiDeck[verbiIdx];
+  verbiAnswered = false;
+
+  document.getElementById('verbi-person-lbl').textContent = q.personLabel;
+  document.getElementById('verbi-tense-lbl').textContent = q.tenseLabel;
+  document.getElementById('verbi-question').textContent = q.fr;
+  document.getElementById('verbi-sub').textContent =
+    'Infinitif : ' + q.it + '  |  ' + q.pronoun + ' …';
+  document.getElementById('verbi-hint').textContent = '';
+  document.getElementById('verbi-feedback').style.display = 'none';
+  document.getElementById('verbi-next').style.display = 'none';
+
+  var inp = document.getElementById('verbi-input');
+  inp.value = '';
+  inp.className = 'verbi-input';
+  inp.disabled = false;
+  inp.style.borderColor = '';
+
+  document.getElementById('verbi-pbar').style.width =
+    Math.round((verbiIdx+1)/verbiDeck.length*100)+'%';
+  document.getElementById('verbi-nav-info').textContent =
+    (verbiIdx+1)+' / '+verbiDeck.length;
+
+  setTimeout(function(){ inp.focus(); }, 100);
+}
+
+function verbiNormalize(s) {
+  return s.trim().toLowerCase()
+    .replace(/[àáâã]/g,'a').replace(/[èéêë]/g,'e')
+    .replace(/[ìíîï]/g,'i').replace(/[òóôõ]/g,'o')
+    .replace(/[ùúûü]/g,'u');
+}
+
+function verbiCheck() {
+  if (verbiAnswered || !verbiDeck.length) return;
+  verbiAnswered = true;
+  var q = verbiDeck[verbiIdx];
+  var inp = document.getElementById('verbi-input');
+  var val = inp.value.trim();
+  var fb = document.getElementById('verbi-feedback');
+
+  // Accepter les variantes: ho fatto / ha fatto / etc, /o géré
+  var answers = q.answer.split(' / ').map(function(a){ return a.trim(); });
+  // Tolérer aussi sans accent
+  var ok = answers.some(function(a) {
+    return val.toLowerCase() === a.toLowerCase() ||
+           verbiNormalize(val) === verbiNormalize(a);
+  });
+
+  inp.disabled = true;
+  if (ok) {
+    verbiOk++;
+    inp.className = 'verbi-input ok';
+    fb.className = 'verbi-feedback ok';
+    fb.textContent = '✓ Bravo ! ' + q.pronoun + ' ' + q.answer;
+  } else {
+    verbiKo++;
+    inp.className = 'verbi-input ko';
+    fb.className = 'verbi-feedback ko';
+    fb.textContent = '✗ Réponse : ' + q.pronoun + ' ' + q.answer;
+    // Hint : montrer la forme correcte
+    document.getElementById('verbi-hint').textContent =
+      'Rappel : ' + q.it + ' (' + q.tenseLabel + ')';
+  }
+  fb.style.display = 'block';
+  document.getElementById('verbi-next').style.display = 'block';
+  verbiUpdateStats();
+}
+
+function verbiNext() {
+  verbiIdx++;
+  if (verbiIdx >= verbiDeck.length) {
+    // Fin du deck
+    var fb = document.getElementById('verbi-feedback');
+    fb.className = 'verbi-feedback ok';
+    fb.textContent = '🏆 Terminé ! Score : '+verbiOk+' / '+(verbiOk+verbiKo);
+    fb.style.display = 'block';
+    document.getElementById('verbi-next').textContent = '↺ Recommencer';
+    document.getElementById('verbi-next').onclick = function(){ verbiBuild(); };
+    document.getElementById('verbi-next').style.display = 'block';
+    return;
+  }
+  document.getElementById('verbi-next').onclick = verbiNext;
+  document.getElementById('verbi-next').textContent = 'Suivant →';
+  verbiRender();
+}
+
+function verbiGo(dir) {
+  verbiIdx = (verbiIdx + dir + verbiDeck.length) % verbiDeck.length;
+  verbiAnswered = false;
+  verbiRender();
+}
+
+function verbiUpdateStats() {
+  var total = verbiDeck.length;
+  document.getElementById('verbi-s-total').textContent = total || '—';
+  document.getElementById('verbi-s-ok').textContent = verbiOk;
+  document.getElementById('verbi-s-ko').textContent = verbiKo;
+  var rated = verbiOk + verbiKo;
+  document.getElementById('verbi-s-pct').textContent =
+    rated > 0 ? Math.round(verbiOk/rated*100)+'%' : '—';
+}
+
+document.getElementById('verbi-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    if (verbiAnswered) verbiNext();
+    else verbiCheck();
+  }
+});
+
 
 </script>
 </body>
