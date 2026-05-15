@@ -112,6 +112,12 @@ button:active { transform: scale(0.98); }
 
 
 
+
+.btn-listen { width:38px; height:38px; border-radius:10px; border:1.5px solid #a8d5b5; cursor:pointer; background:#f0fdf4; color:#2d7a4f; display:flex; align-items:center; justify-content:center; margin:10px auto 0; transition:all .18s; -webkit-tap-highlight-color:transparent; }
+.btn-listen:active { transform:scale(0.93); }
+.btn-listen.speaking { background:#d1fae5; border-color:#2d7a4f; animation:pulse-speak .7s infinite alternate; }
+@keyframes pulse-speak { from{box-shadow:0 0 0 0 rgba(45,122,79,.4);}to{box-shadow:0 0 0 8px rgba(45,122,79,0);} }
+
 /* VERBI */
 .verbi-controls { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; align-items:center; }
 .verbi-card { background:#f8fff9; border:1px solid #a8d5b5; border-radius:14px; padding:20px; margin-bottom:10px; }
@@ -214,6 +220,13 @@ if ('serviceWorker' in navigator && location.hostname === 'larsenchloe.github.io
   <div class="fc-word" id="fc-word">Prêt !</div>
   <div class="fc-phonetic" id="fc-phonetic"></div>
   <div class="fc-genre" id="fc-genre"></div>
+  <button class="btn-listen" id="btn-listen" title="Écouter" onclick="event.stopPropagation();fcSpeak();">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>
+  </button>
   <div class="fc-hint" id="fc-hint">— toucher pour retourner —</div>
   <div id="fc-answer" style="display:none" class="fc-sep">
     <div class="fc-fr" id="fc-fr"></div>
@@ -3370,6 +3383,52 @@ document.getElementById('verbi-input').addEventListener('keydown', function(e) {
 
 
 
+
+
+// ── TTS ──────────────────────────────────────────────────
+var _synth = window.speechSynthesis;
+var _itVoice = null;
+var _voicesLoaded = false;
+
+function _loadVoices() {
+  var voices = _synth ? _synth.getVoices() : [];
+  if (!voices.length) return;
+  _voicesLoaded = true;
+  // Priorité : Alice (iOS native) > it-IT > it-
+  _itVoice = voices.find(function(v){ return v.name === 'Alice'; })
+           || voices.find(function(v){ return v.lang === 'it-IT'; })
+           || voices.find(function(v){ return v.lang && v.lang.startsWith('it'); })
+           || null;
+  var btn = document.getElementById('btn-listen');
+  if (btn) btn.title = _itVoice ? ('Voix : ' + _itVoice.name) : 'Aucune voix italienne';
+}
+
+if (_synth) {
+  _loadVoices();
+  _synth.onvoiceschanged = _loadVoices;
+  setTimeout(_loadVoices, 500);
+  setTimeout(_loadVoices, 1500);
+}
+
+function fcSpeak() {
+  if (!_synth || !fcDeck.length) return;
+  var text = fcDeck[fcIdx].it;
+  if (!text) return;
+  if (_voicesLoaded && !_itVoice) {
+    showToast('Installe Alice : Réglages → Accessibilité → Contenu énoncé → Voix → Italien');
+    return;
+  }
+  _synth.cancel();
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = 'it-IT';
+  u.rate = 0.82;
+  u.pitch = 1;
+  if (_itVoice) u.voice = _itVoice;
+  var btn = document.getElementById('btn-listen');
+  if (btn) btn.classList.add('speaking');
+  u.onend = u.onerror = function(){ if(btn) btn.classList.remove('speaking'); };
+  _synth.speak(u);
+}
 
 </script>
 </body>
