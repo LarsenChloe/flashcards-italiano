@@ -1,6 +1,6 @@
 // Service Worker — Italiano Larsen
 // Version : à incrémenter à chaque mise à jour du fichier HTML
-var CACHE_NAME = 'italiano-larsen-v1';
+var CACHE_NAME = 'italiano-larsen-v2';
 
 var FILES_TO_CACHE = [
   '/flashcards-italiano/italiano_larsen.html'
