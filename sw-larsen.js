@@ -3,7 +3,8 @@
 var CACHE_NAME = 'italiano-larsen-v2';
 
 var FILES_TO_CACHE = [
-  '/flashcards-italiano/italiano_larsen.html'
+  '/flashcards-italiano/italiano_larsen.html',
+  '/flashcards-italiano/icon1.png'
 ];
 
 // Installation : mise en cache du fichier HTML
